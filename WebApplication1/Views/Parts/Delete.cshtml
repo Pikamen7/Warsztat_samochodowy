@@ -1,0 +1,44 @@
+@model WebApplication1.Models.Part
+
+@{
+    ViewData["Title"] = "Usuń część";
+}
+
+<h1>Usuń część</h1>
+
+<div class="alert alert-danger">
+    Czy na pewno chcesz usunąć tę część?
+</div>
+
+<table class="table">
+    <tr>
+        <th>Nazwa</th>
+        <td>@Model.Name</td>
+    </tr>
+    <tr>
+        <th>Numer katalogowy</th>
+        <td>@Model.CatalogNumber</td>
+    </tr>
+    <tr>
+        <th>Cena zakupu netto</th>
+        <td>@Model.PurchaseNetPrice zł</td>
+    </tr>
+    <tr>
+        <th>Cena sprzedaży brutto</th>
+        <td>@Model.SaleGrossPrice zł</td>
+    </tr>
+    <tr>
+        <th>Ilość na magazynie</th>
+        <td>@Model.QuantityInStock</td>
+    </tr>
+</table>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+
+    <button type="submit" class="btn btn-danger">Usuń</button>
+
+    <a asp-controller="Parts" asp-action="Index" class="btn btn-secondary">
+        Anuluj
+    </a>
+</form>

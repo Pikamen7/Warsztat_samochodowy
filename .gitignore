@@ -1,0 +1,14 @@
+# JetBrains Rider
+.idea/
+
+# Build
+**/bin/
+**/obj/
+
+# ASP.NET Secrets
+**/appsettings.Local.json
+*.pfx
+*.p12
+
+# macOS
+.DS_Store

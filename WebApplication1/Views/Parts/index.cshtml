@@ -1,0 +1,52 @@
+@model List<WebApplication1.Models.Part>
+
+@{
+    ViewData["Title"] = "Części";
+}
+
+<h1>Części</h1>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Parts" asp-action="Create">
+        Dodaj część
+    </a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Nazwa</th>
+        <th>Numer katalogowy</th>
+        <th>Cena zakupu netto</th>
+        <th>Cena zakupu brutto</th>
+        <th>Marża</th>
+        <th>Cena sprzedaży netto</th>
+        <th>Cena sprzedaży brutto</th>
+        <th>Ilość</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var part in Model)
+    {
+        <tr>
+            <td>@part.Name</td>
+            <td>@part.CatalogNumber</td>
+            <td>@part.PurchaseNetPrice zł</td>
+            <td>@part.PurchaseGrossPrice zł</td>
+            <td>@part.MarginPercent %</td>
+            <td>@part.SaleNetPrice zł</td>
+            <td>@part.SaleGrossPrice zł</td>
+            <td>@part.QuantityInStock</td>
+            <td>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@part.Id">
+                    Edytuj
+                </a>
+
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@part.Id">
+                    Usuń
+                </a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

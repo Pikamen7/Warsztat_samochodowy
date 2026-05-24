@@ -1,0 +1,42 @@
+@model List<WebApplication1.Models.Customer>
+
+@{
+    ViewData["Title"] = "Klienci";
+}
+
+<h1>Klienci</h1>
+
+<p>
+    <a class="btn btn-primary" asp-controller="Customers" asp-action="Create">
+        Dodaj klienta
+    </a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Imię i nazwisko</th>
+        <th>Telefon</th>
+        <th>Email</th>
+        <th>Auto</th>
+        <th>Rejestracja</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var customer in Model)
+    {
+        <tr>
+            <td>@customer.FirstName @customer.LastName</td>
+            <td>@customer.PhoneNumber</td>
+            <td>@customer.Email</td>
+            <td>@customer.CarBrand @customer.CarModel</td>
+            <td>@customer.RegistrationNumber</td>
+            <td>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@customer.Id">Edytuj</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@customer.Id">Usuń</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
