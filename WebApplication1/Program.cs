@@ -3,6 +3,8 @@ using WebApplication1.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddJsonFile("appsettings.Local.json", optional: true, reloadOnChange: true);
+
 // MVC: kontrolery + widoki
 builder.Services.AddControllersWithViews();
 
