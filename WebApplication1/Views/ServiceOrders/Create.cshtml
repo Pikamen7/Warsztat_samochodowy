@@ -1,0 +1,42 @@
+@model WebApplication1.Models.ServiceOrder
+
+@{
+    ViewData["Title"] = "Nowe zlecenie serwisowe";
+}
+
+<h1>Nowe zlecenie serwisowe</h1>
+
+<form asp-action="Create" method="post">
+    <div class="mb-3">
+        <label asp-for="CustomerId" class="form-label"></label>
+        <select asp-for="CustomerId" asp-items="ViewBag.Customers" class="form-select">
+            <option value="">— wybierz klienta —</option>
+        </select>
+        <span asp-validation-for="CustomerId" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Status" class="form-label"></label>
+        <select asp-for="Status" asp-items="ViewBag.Statuses" class="form-select"></select>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Description" class="form-label"></label>
+        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="LaborCost" class="form-label"></label>
+        <div class="input-group">
+            <input asp-for="LaborCost" class="form-control" type="number" step="0.01" min="0" />
+            <span class="input-group-text">zł</span>
+        </div>
+    </div>
+
+    <button type="submit" class="btn btn-success">Utwórz zlecenie</button>
+    <a asp-action="Index" class="btn btn-secondary">Wróć</a>
+</form>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

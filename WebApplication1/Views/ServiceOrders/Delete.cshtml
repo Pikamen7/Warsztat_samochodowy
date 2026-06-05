@@ -1,0 +1,36 @@
+@model WebApplication1.Models.ServiceOrder
+
+@{
+    ViewData["Title"] = "Usuń zlecenie";
+}
+
+<h1>Usuń zlecenie</h1>
+
+<div class="alert alert-danger">
+    Czy na pewno chcesz usunąć zlecenie #@Model.Id? Operacja jest nieodwracalna.
+</div>
+
+<table class="table" style="max-width: 500px;">
+    <tr>
+        <th>Klient</th>
+        <td>@Model.Customer?.LastName @Model.Customer?.FirstName</td>
+    </tr>
+    <tr>
+        <th>Auto</th>
+        <td>@Model.Customer?.CarBrand @Model.Customer?.CarModel (@Model.Customer?.RegistrationNumber)</td>
+    </tr>
+    <tr>
+        <th>Data przyjęcia</th>
+        <td>@Model.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy")</td>
+    </tr>
+    <tr>
+        <th>Opis prac</th>
+        <td>@Model.Description</td>
+    </tr>
+</table>
+
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Usuń</button>
+    <a asp-action="Index" class="btn btn-secondary">Anuluj</a>
+</form>

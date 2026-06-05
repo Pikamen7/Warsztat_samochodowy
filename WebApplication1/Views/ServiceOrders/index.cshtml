@@ -1,9 +1,60 @@
+@model List<WebApplication1.Models.ServiceOrder>
+
 @{
     ViewData["Title"] = "Zlecenia serwisowe";
 }
 
 <h1>Zlecenia serwisowe</h1>
 
-<p>Tutaj będzie lista zleceń serwisowych.</p>
+<p>
+    <a class="btn btn-primary" asp-action="Create">Dodaj zlecenie</a>
+</p>
 
-<a class="btn btn-primary" href="#">Dodaj zlecenie</a>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#</th>
+        <th>Klient</th>
+        <th>Auto / Rejestracja</th>
+        <th>Data przyjęcia</th>
+        <th>Status</th>
+        <th>Wartość netto</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var order in Model)
+    {
+        var totalNet = order.LaborCost + order.Items.Sum(i => i.TotalPrice);
+        var statusClass = order.Status switch
+        {
+            WebApplication1.Models.ServiceOrderStatus.Nowe       => "bg-primary",
+            WebApplication1.Models.ServiceOrderStatus.WTrakcie   => "bg-warning text-dark",
+            WebApplication1.Models.ServiceOrderStatus.Zakonczone => "bg-success",
+            WebApplication1.Models.ServiceOrderStatus.Anulowane  => "bg-secondary",
+            _ => ""
+        };
+        var statusLabel = order.Status switch
+        {
+            WebApplication1.Models.ServiceOrderStatus.Nowe       => "Nowe",
+            WebApplication1.Models.ServiceOrderStatus.WTrakcie   => "W trakcie",
+            WebApplication1.Models.ServiceOrderStatus.Zakonczone => "Zakończone",
+            WebApplication1.Models.ServiceOrderStatus.Anulowane  => "Anulowane",
+            _ => ""
+        };
+        <tr>
+            <td>@order.Id</td>
+            <td>@order.Customer?.LastName @order.Customer?.FirstName</td>
+            <td>@order.Customer?.CarBrand @order.Customer?.CarModel<br /><small>@order.Customer?.RegistrationNumber</small></td>
+            <td>@order.CreatedAt.ToLocalTime().ToString("dd.MM.yyyy")</td>
+            <td><span class="badge @statusClass">@statusLabel</span></td>
+            <td>@totalNet.ToString("N2") zł</td>
+            <td>
+                <a class="btn btn-sm btn-info" asp-action="Details" asp-route-id="@order.Id">Szczegóły</a>
+                <a class="btn btn-sm btn-warning" asp-action="Edit" asp-route-id="@order.Id">Edytuj</a>
+                <a class="btn btn-sm btn-danger" asp-action="Delete" asp-route-id="@order.Id">Usuń</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

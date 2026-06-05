@@ -15,4 +15,8 @@ public class AppDbContext : DbContext
     public DbSet<Customer> Customers => Set<Customer>();
 
     public DbSet<Part> Parts => Set<Part>();
+
+    public DbSet<ServiceOrder> ServiceOrders => Set<ServiceOrder>();
+
+    public DbSet<ServiceOrderItem> ServiceOrderItems => Set<ServiceOrderItem>();
 }
